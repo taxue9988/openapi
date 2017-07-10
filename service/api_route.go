@@ -8,6 +8,7 @@ import (
 
 	"github.com/labstack/echo"
 	"github.com/valyala/fasthttp"
+	"go.uber.org/zap"
 )
 
 var cli = &fasthttp.Client{}
@@ -24,14 +25,18 @@ func apiRoute(c echo.Context) error {
 
 	api := apiI.(*Api)
 
+	Logger.Debug("api信息", zap.Any("api", *api))
 	// 生成url
 	var upstreamUrl string
+
+	if len(api.UpstreamServers) <= 0 {
+		return c.String(http.StatusOK, "该Api没有服务器存活")
+	}
 	if api.ProxyMode == 1 {
 		uri := c.Request().RequestURI
-		if api.UpstreamMode == 1 {
-			url := api.UpstreamServers[0].IP
-			upstreamUrl = url + uri
-		}
+		//  api.UpstreamMode 为 1和2时，处理方式暂时统一
+		url := api.UpstreamServers[0].IP
+		upstreamUrl = url + uri
 	} else {
 		upstreamUrl = api.UpstreamServers[0].IP
 	}

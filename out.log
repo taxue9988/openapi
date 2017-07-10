@@ -112,3 +112,105 @@
 {"level":"debug","ts":"2017-07-09T14:34:49.618+0800","caller":"service/api_load.go:56","msg":"api","api":{"Name":"pay.cashier.query.v1","Method":"GET","ProxyMode":2,"UpstreamMode":1,"UpstreamServers":[{"IP":"http://localhost:1325/pay/cashier/query","Load":1}]}}
 {"level":"debug","ts":"2017-07-09T14:34:49.618+0800","caller":"service/api_load.go:56","msg":"api","api":{"Name":"http.info.get.v1","Method":"GET","ProxyMode":1,"UpstreamMode":1,"UpstreamServers":[{"IP":"http://httpbin.org","Load":1}]}}
 {"level":"debug","ts":"2017-07-09T14:34:49.618+0800","caller":"service/api_load.go:56","msg":"api","api":{"Name":"http.info.get.v2","Method":"GET","ProxyMode":2,"UpstreamMode":1,"UpstreamServers":[{"IP":"http://httpbin.org/get","Load":1}]}}
+{"level":"info","ts":"2017-07-09T15:14:04.299+0800","caller":"service/logger.go:44","msg":"logger初始化成功"}
+{"level":"info","ts":"2017-07-09T15:17:57.423+0800","caller":"service/logger.go:44","msg":"logger初始化成功"}
+{"level":"info","ts":"2017-07-09T15:21:28.962+0800","caller":"service/logger.go:44","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-09T15:21:28.967+0800","caller":"service/api_load.go:60","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","val":"0.4"}
+{"level":"debug","ts":"2017-07-09T15:21:28.967+0800","caller":"service/api_load.go:60","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","val":"0.7"}
+{"level":"info","ts":"2017-07-09T15:34:01.027+0800","caller":"service/logger.go:44","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-09T15:34:01.032+0800","caller":"service/api_load.go:74","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","val":"0.4"}
+{"level":"debug","ts":"2017-07-09T15:34:01.032+0800","caller":"service/api_load.go:74","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","val":"0.7"}
+{"level":"info","ts":"2017-07-09T15:34:47.567+0800","caller":"service/logger.go:44","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-09T15:34:47.572+0800","caller":"service/api_load.go:75","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","val":"0.4"}
+{"level":"debug","ts":"2017-07-09T15:34:47.572+0800","caller":"service/api_load.go:75","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","val":"0.7"}
+{"level":"info","ts":"2017-07-09T15:36:06.442+0800","caller":"service/logger.go:44","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-09T15:36:06.447+0800","caller":"service/api_load.go:75","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","val":"0.4"}
+{"level":"debug","ts":"2017-07-09T15:36:06.447+0800","caller":"service/api_load.go:75","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","val":"0.7"}
+{"level":"info","ts":"2017-07-09T15:36:22.893+0800","caller":"service/logger.go:44","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-09T15:36:22.897+0800","caller":"service/api_load.go:75","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","val":"0.4"}
+{"level":"debug","ts":"2017-07-09T15:36:22.897+0800","caller":"service/api_load.go:75","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","val":"0.7"}
+{"level":"info","ts":"2017-07-09T15:37:05.765+0800","caller":"service/logger.go:44","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-09T15:37:05.771+0800","caller":"service/api_load.go:73","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","ip":"127.0.0.1:1324","val":"0.4"}
+{"level":"debug","ts":"2017-07-09T15:37:05.771+0800","caller":"service/api_load.go:73","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","ip":"127.0.0.1:1325","val":"0.7"}
+{"level":"info","ts":"2017-07-09T15:43:06.214+0800","caller":"service/logger.go:44","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-09T15:43:06.218+0800","caller":"service/api_load.go:76","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","ip":"127.0.0.1:1324","val":"0.4"}
+{"level":"debug","ts":"2017-07-09T15:43:06.218+0800","caller":"service/api_load.go:76","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","ip":"127.0.0.1:1325","val":"0.7"}
+{"level":"info","ts":"2017-07-09T15:43:27.908+0800","caller":"service/logger.go:44","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-09T15:43:27.914+0800","caller":"service/api_load.go:76","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","ip":"127.0.0.1:1324","val":"0.4"}
+{"level":"debug","ts":"2017-07-09T15:43:27.914+0800","caller":"service/api_load.go:76","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","ip":"127.0.0.1:1325","val":"0.7"}
+{"level":"info","ts":"2017-07-09T15:44:39.566+0800","caller":"service/logger.go:44","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-09T15:44:39.571+0800","caller":"service/api_load.go:76","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","ip":"127.0.0.1:1324","val":"0.4"}
+{"level":"debug","ts":"2017-07-09T15:44:39.571+0800","caller":"service/api_load.go:76","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","ip":"127.0.0.1:1325","val":"0.7"}
+{"level":"info","ts":"2017-07-09T15:44:51.363+0800","caller":"service/logger.go:44","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-09T15:44:51.367+0800","caller":"service/api_load.go:76","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","ip":"127.0.0.1:1324","val":"0.4"}
+{"level":"debug","ts":"2017-07-09T15:44:51.367+0800","caller":"service/api_load.go:76","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","ip":"127.0.0.1:1325","val":"0.7"}
+{"level":"info","ts":"2017-07-09T15:48:15.470+0800","caller":"service/logger.go:44","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-09T15:48:15.475+0800","caller":"service/api_load.go:76","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","ip":"127.0.0.1:1324","val":"0.4"}
+{"level":"debug","ts":"2017-07-09T15:48:15.475+0800","caller":"service/api_load.go:76","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","ip":"127.0.0.1:1325","val":"0.7"}
+{"level":"info","ts":"2017-07-09T15:48:47.564+0800","caller":"service/logger.go:44","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-09T15:48:47.569+0800","caller":"service/api_load.go:76","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","ip":"http://127.0.0.1:1324","val":"0.4"}
+{"level":"debug","ts":"2017-07-09T15:48:47.569+0800","caller":"service/api_load.go:76","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","ip":"http://127.0.0.1:1325","val":"0.7"}
+{"level":"info","ts":"2017-07-09T15:51:22.087+0800","caller":"service/logger.go:44","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-09T15:51:22.092+0800","caller":"service/api_load.go:76","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","ip":"http://127.0.0.1:1324","val":"0.4"}
+{"level":"debug","ts":"2017-07-09T15:51:22.092+0800","caller":"service/api_load.go:76","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","ip":"http://127.0.0.1:1325","val":"0.7"}
+{"level":"debug","ts":"2017-07-09T15:51:27.923+0800","caller":"service/api_route.go:28","msg":"api信息","api":{"Name":"zeus.cache.query.v1","Method":"GET","ProxyMode":1,"UpstreamMode":2,"UpstreamServers":[{"Load":0.4,"IP":"http://127.0.0.1:1324"},{"Load":0.7,"IP":"http://127.0.0.1:1325"}]}}
+{"level":"info","ts":"2017-07-09T15:54:16.479+0800","caller":"service/logger.go:44","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-09T15:54:16.483+0800","caller":"service/api_load.go:76","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","ip":"http://127.0.0.1:1324","val":"0.4"}
+{"level":"debug","ts":"2017-07-09T15:54:16.483+0800","caller":"service/api_load.go:76","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","ip":"http://127.0.0.1:1325","val":"0.7"}
+{"level":"debug","ts":"2017-07-09T15:54:20.835+0800","caller":"service/api_route.go:28","msg":"api信息","api":{"Name":"zeus.cache.query.v1","Method":"GET","ProxyMode":1,"UpstreamMode":2,"UpstreamServers":[{"Load":0.4,"IP":"http://127.0.0.1:1324"},{"Load":0.7,"IP":"http://127.0.0.1:1325"}]}}
+{"level":"debug","ts":"2017-07-09T15:55:02.766+0800","caller":"service/api_route.go:28","msg":"api信息","api":{"Name":"zeus.cache.query.v1","Method":"GET","ProxyMode":1,"UpstreamMode":2,"UpstreamServers":[{"Load":0.4,"IP":"http://127.0.0.1:1324"},{"Load":0.7,"IP":"http://127.0.0.1:1325"}]}}
+{"level":"info","ts":"2017-07-09T15:55:57.194+0800","caller":"service/logger.go:44","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-09T15:55:57.198+0800","caller":"service/api_load.go:76","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","ip":"http://127.0.0.1:1324","val":"0.4"}
+{"level":"debug","ts":"2017-07-09T15:55:57.198+0800","caller":"service/api_load.go:76","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","ip":"http://127.0.0.1:1325","val":"0.7"}
+{"level":"debug","ts":"2017-07-09T15:55:59.307+0800","caller":"service/api_route.go:28","msg":"api信息","api":{"Name":"zeus.cache.query.v1","Method":"POST","ProxyMode":1,"UpstreamMode":2,"UpstreamServers":[{"Load":0.4,"IP":"http://127.0.0.1:1324"},{"Load":0.7,"IP":"http://127.0.0.1:1325"}]}}
+{"level":"info","ts":"2017-07-10T13:34:06.169+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"info","ts":"2017-07-10T13:35:20.465+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-10T13:35:20.477+0800","caller":"service/api_load.go:76","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","ip":"http://127.0.0.1:1324","val":"0.4"}
+{"level":"debug","ts":"2017-07-10T13:35:20.477+0800","caller":"service/api_load.go:76","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","ip":"http://127.0.0.1:1325","val":"0.7"}
+{"level":"debug","ts":"2017-07-10T13:35:25.333+0800","caller":"service/api_route.go:28","msg":"api信息","api":{"Name":"zeus.cache.query.v1","Method":"POST","ProxyMode":1,"UpstreamMode":2,"UpstreamServers":[{"Load":0.4,"IP":"http://127.0.0.1:1324"},{"Load":0.7,"IP":"http://127.0.0.1:1325"}]}}
+{"level":"debug","ts":"2017-07-10T13:35:34.702+0800","caller":"service/api_route.go:28","msg":"api信息","api":{"Name":"zeus.cache.query.v1","Method":"POST","ProxyMode":1,"UpstreamMode":2,"UpstreamServers":[{"Load":0.4,"IP":"http://127.0.0.1:1324"},{"Load":0.7,"IP":"http://127.0.0.1:1325"}]}}
+{"level":"info","ts":"2017-07-10T13:38:17.755+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-10T13:38:17.759+0800","caller":"service/api_load.go:76","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","ip":"http://127.0.0.1:1324","val":"0.4"}
+{"level":"debug","ts":"2017-07-10T13:38:17.759+0800","caller":"service/api_load.go:76","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","ip":"http://127.0.0.1:1325","val":"0.7"}
+{"level":"info","ts":"2017-07-10T15:56:19.264+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-10T15:56:19.270+0800","caller":"service/api_load.go:70","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","ip":"http://127.0.0.1:1324","val":"0.5"}
+{"level":"debug","ts":"2017-07-10T15:56:19.270+0800","caller":"service/api_load.go:70","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","ip":"http://127.0.0.1:1325","val":"0.7"}
+{"level":"info","ts":"2017-07-10T15:56:51.091+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-10T15:56:51.097+0800","caller":"service/api_load.go:70","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","ip":"http://127.0.0.1:1324","val":"0.5"}
+{"level":"debug","ts":"2017-07-10T15:56:51.097+0800","caller":"service/api_load.go:70","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","ip":"http://127.0.0.1:1325","val":"0.7"}
+{"level":"info","ts":"2017-07-10T16:05:31.844+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-10T16:05:31.849+0800","caller":"service/api_load.go:70","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","ip":"http://127.0.0.1:1324","val":"0.5"}
+{"level":"debug","ts":"2017-07-10T16:05:31.849+0800","caller":"service/api_load.go:70","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","ip":"http://127.0.0.1:1325","val":"0.7"}
+{"level":"info","ts":"2017-07-10T16:06:31.271+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-10T16:06:31.276+0800","caller":"service/api_load.go:70","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","ip":"http://127.0.0.1:1324","val":"0.5"}
+{"level":"debug","ts":"2017-07-10T16:06:31.276+0800","caller":"service/api_load.go:70","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","ip":"http://127.0.0.1:1325","val":"0.7"}
+{"level":"info","ts":"2017-07-10T16:07:30.743+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-10T16:07:30.747+0800","caller":"service/api_load.go:70","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","ip":"http://127.0.0.1:1324","val":"0.4"}
+{"level":"debug","ts":"2017-07-10T16:07:30.747+0800","caller":"service/api_load.go:70","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","ip":"http://127.0.0.1:1325","val":"0.7"}
+{"level":"info","ts":"2017-07-10T16:09:14.692+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-10T16:09:14.697+0800","caller":"service/api_load.go:70","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","ip":"http://127.0.0.1:1324","val":"0.9"}
+{"level":"debug","ts":"2017-07-10T16:09:14.697+0800","caller":"service/api_load.go:70","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","ip":"http://127.0.0.1:1325","val":"0.7"}
+{"level":"info","ts":"2017-07-10T16:10:44.606+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-10T16:10:44.611+0800","caller":"service/api_load.go:70","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","ip":"http://127.0.0.1:1324","val":"0.9"}
+{"level":"debug","ts":"2017-07-10T16:10:44.611+0800","caller":"service/api_load.go:70","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","ip":"http://127.0.0.1:1325","val":"0.7"}
+{"level":"info","ts":"2017-07-10T16:12:13.262+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-10T16:12:13.267+0800","caller":"service/api_load.go:70","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1324","ip":"http://127.0.0.1:1324","val":"0.9"}
+{"level":"debug","ts":"2017-07-10T16:12:13.267+0800","caller":"service/api_load.go:70","msg":"range etcd keys","key":"/openapi/servers/zeus.cache.query.v1/127.0.0.1:1325","ip":"http://127.0.0.1:1325","val":"0.7"}
+{"level":"info","ts":"2017-07-10T16:12:21.872+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"info","ts":"2017-07-10T16:12:55.104+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"info","ts":"2017-07-10T16:13:23.382+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"info","ts":"2017-07-10T16:13:46.110+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"info","ts":"2017-07-10T16:14:48.091+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"info","ts":"2017-07-10T16:16:48.320+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"info","ts":"2017-07-10T16:17:35.529+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"info","ts":"2017-07-10T16:18:01.378+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"info","ts":"2017-07-10T16:19:26.582+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"info","ts":"2017-07-10T16:20:32.380+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"info","ts":"2017-07-10T16:31:59.530+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"info","ts":"2017-07-10T16:33:07.913+0800","caller":"service/logger.go:36","msg":"logger初始化成功"}
+{"level":"debug","ts":"2017-07-10T16:35:27.159+0800","caller":"service/api_route.go:28","msg":"api信息","api":{"Name":"zeus.cache.query.v1","Method":"POST","ProxyMode":1,"UpstreamMode":2,"UpstreamServers":[{"Load":0.5,"IP":"http://127.0.0.1:1324"},{"Load":0.5,"IP":"http://127.0.0.1:1325"},{"Load":0.8,"IP":"http://127.0.0.1:1326"}]}}
+{"level":"debug","ts":"2017-07-10T16:35:52.341+0800","caller":"service/api_route.go:28","msg":"api信息","api":{"Name":"zeus.cache.query.v1","Method":"POST","ProxyMode":1,"UpstreamMode":2,"UpstreamServers":[{"Load":0.4,"IP":"http://127.0.0.1:1325"},{"Load":0.5,"IP":"http://127.0.0.1:1324"},{"Load":0.8,"IP":"http://127.0.0.1:1326"}]}}
+{"level":"debug","ts":"2017-07-10T16:36:57.042+0800","caller":"service/api_route.go:28","msg":"api信息","api":{"Name":"zeus.cache.query.v1","Method":"POST","ProxyMode":1,"UpstreamMode":2,"UpstreamServers":[{"Load":0.5,"IP":"http://127.0.0.1:1324"},{"Load":0.7,"IP":"http://127.0.0.1:1325"},{"Load":0.8,"IP":"http://127.0.0.1:1326"}]}}
+{"level":"debug","ts":"2017-07-10T16:37:19.898+0800","caller":"service/api_route.go:28","msg":"api信息","api":{"Name":"zeus.cache.query.v1","Method":"POST","ProxyMode":1,"UpstreamMode":2,"UpstreamServers":[{"Load":0.7,"IP":"http://127.0.0.1:1325"},{"Load":0.8,"IP":"http://127.0.0.1:1326"}]}}
+{"level":"debug","ts":"2017-07-10T17:31:43.495+0800","caller":"service/api_route.go:28","msg":"api信息","api":{"Name":"zeus.cache.query.v1","Method":"POST","ProxyMode":1,"UpstreamMode":2,"UpstreamServers":[{"Load":0.7,"IP":"http://127.0.0.1:1325"},{"Load":0.8,"IP":"http://127.0.0.1:1326"}]}}
+{"level":"debug","ts":"2017-07-10T17:33:40.571+0800","caller":"service/api_route.go:28","msg":"api信息","api":{"Name":"zeus.cache.query.v1","Method":"POST","ProxyMode":1,"UpstreamMode":2,"UpstreamServers":[{"Load":0.7,"IP":"http://127.0.0.1:1325"},{"Load":0.8,"IP":"http://127.0.0.1:1326"}]}}

@@ -23,8 +23,8 @@ type Api struct {
 }
 
 type UpstreamServer struct {
+	Load float64
 	IP   string
-	Load int
 }
 
 var Apis = &sync.Map{}

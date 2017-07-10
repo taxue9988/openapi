@@ -22,6 +22,11 @@ type Config struct {
 		Acc      string
 		Pw       string
 	}
+
+	Etcd struct {
+		Addrs     []string
+		ServerKey string
+	}
 }
 
 var Conf = &Config{}

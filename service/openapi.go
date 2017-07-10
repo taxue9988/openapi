@@ -6,6 +6,8 @@ func Start() {
 	initConfig()
 	initLogger(Conf.Common.LogPath, Conf.Common.LogLevel, Conf.Common.IsDebug)
 	initMysql()
+	initEtcd()
+	go watchUpstramServers()
 
 	loadApis()
 	e := echo.New()

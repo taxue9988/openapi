@@ -20,9 +20,8 @@ func initLogger(lp string, lv string, isDebug bool) {
 		"errorOutputPaths": ["stderr","%s"]
 	}`, lv, lp, lp)
 
-	rawJSON := []byte(js)
 	var cfg zap.Config
-	if err := json.Unmarshal(rawJSON, &cfg); err != nil {
+	if err := json.Unmarshal([]byte(js), &cfg); err != nil {
 		panic(err)
 	}
 	cfg.EncoderConfig = zap.NewProductionEncoderConfig()
@@ -34,12 +33,5 @@ func initLogger(lp string, lv string, isDebug bool) {
 		log.Fatal("init logger error: ", err)
 	}
 
-	// n := 0
-	// for {
-	// 	Logger.Info("logger初始化成功", zap.Int("n", n))
-	// 	n++
-
-	// 	time.Sleep(5 * time.Second)
-	// }
 	Logger.Info("logger初始化成功")
 }

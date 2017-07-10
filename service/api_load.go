@@ -1,9 +1,14 @@
 package service
 
 import (
+	"bytes"
+	"context"
 	"database/sql"
 	"fmt"
+	"sort"
+	"strconv"
 
+	"github.com/coreos/etcd/clientv3"
 	_ "github.com/go-sql-driver/mysql"
 	"go.uber.org/zap"
 )
@@ -50,6 +55,30 @@ func loadApis() {
 			}
 		} else {
 			// 从etcd读取key=api.Name的值
+			resp, err := etcdCli.Get(context.Background(), Conf.Etcd.ServerKey+api.Name, clientv3.WithPrefix())
+			if err != nil {
+				Logger.Fatal("etcd get error", zap.Error(err))
+			}
+
+			servers := make([]*UpstreamServer, 0, len(resp.Kvs))
+			for _, v := range resp.Kvs {
+				ip, load := ipAndLoad(v.Key, v.Value)
+				servers = append(servers, &UpstreamServer{
+					IP:   ip,
+					Load: load,
+				})
+			}
+
+			// 对负载进行从小到大的排列
+			sort.Slice(servers, func(i, j int) bool {
+				return servers[i].Load < servers[j].Load
+			})
+
+			api.UpstreamServers = servers
+
+			for _, s := range api.UpstreamServers {
+				fmt.Printf("api load: %s 的最新服务器列表: %v\n", api.Name, *s)
+			}
 		}
 
 		Apis.Store(api.Name, api)
@@ -77,82 +106,13 @@ func initMysql() {
 	}
 }
 
-func mockApis() {
-	// 支付收银台结算
-	payCheckApi := &Api{
-		Name:         "pay.cashier.check.v1",
-		Method:       "POST",
-		ProxyMode:    1,
-		UpstreamMode: 1,
-		UpstreamServers: []*UpstreamServer{
-			&UpstreamServer{
-				IP:   "http://localhost:1324",
-				Load: 1,
-			},
-		},
-	}
+func ipAndLoad(key []byte, val []byte) (string, float64) {
+	// 解析load
+	load, _ := strconv.ParseFloat(string(val), 64)
 
-	Apis.Store(payCheckApi.Name, payCheckApi)
+	// 解析出ip
+	ipIndex := bytes.LastIndex(key, []byte{'/'})
+	ip := "http://" + string(key[ipIndex+1:])
 
-	payCheckApiV2 := &Api{
-		Name:         "pay.cashier.check.v2",
-		Method:       "POST",
-		ProxyMode:    1,
-		UpstreamMode: 1,
-		UpstreamServers: []*UpstreamServer{
-			&UpstreamServer{
-				IP:   "http://localhost:1324/a",
-				Load: 1,
-			},
-		},
-	}
-
-	Apis.Store(payCheckApiV2.Name, payCheckApiV2)
-
-	// 支付收银台查询
-	payQueryApi := &Api{
-		Name:         "pay.cashier.query.v1",
-		Method:       "GET",
-		ProxyMode:    2,
-		UpstreamMode: 1,
-		UpstreamServers: []*UpstreamServer{
-			&UpstreamServer{
-				IP:   "http://localhost:1325/pay/cashier/query",
-				Load: 1,
-			},
-		},
-	}
-
-	Apis.Store(payQueryApi.Name, payQueryApi)
-
-	// HTTP信息查询
-	httpGetApi := &Api{
-		Name:         "http.info.get.v1",
-		Method:       "GET",
-		ProxyMode:    1,
-		UpstreamMode: 1,
-		UpstreamServers: []*UpstreamServer{
-			&UpstreamServer{
-				IP:   "http://httpbin.org",
-				Load: 1,
-			},
-		},
-	}
-
-	Apis.Store(httpGetApi.Name, httpGetApi)
-
-	httpGetApiV2 := &Api{
-		Name:         "http.info.get.v2",
-		Method:       "GET",
-		ProxyMode:    2,
-		UpstreamMode: 1,
-		UpstreamServers: []*UpstreamServer{
-			&UpstreamServer{
-				IP:   "http://httpbin.org/get",
-				Load: 1,
-			},
-		},
-	}
-
-	Apis.Store(httpGetApiV2.Name, httpGetApiV2)
+	return ip, load
 }
