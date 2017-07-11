@@ -1,4 +1,4 @@
-package service
+package global
 
 import (
 	"encoding/json"
@@ -12,7 +12,7 @@ import (
 
 var Logger *zap.Logger
 
-func initLogger(lp string, lv string, isDebug bool) {
+func InitLogger(lp string, lv string, isDebug bool) {
 	js := fmt.Sprintf(`{
 		"level": "%s",
 		"encoding": "json",

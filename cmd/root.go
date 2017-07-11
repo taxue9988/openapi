@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/rdcloud-io/openapi/service"
+	"github.com/rdcloud-io/openapi/gateway"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -79,5 +79,5 @@ func initConfig() {
 }
 
 func start(cmd *cobra.Command, args []string) {
-	service.Start()
+	gateway.Start()
 }

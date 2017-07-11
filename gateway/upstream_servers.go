@@ -1,4 +1,4 @@
-package service
+package gateway
 
 import (
 	"bytes"
@@ -31,7 +31,7 @@ func watchUpstramServers() {
 					apiIndex := bytes.LastIndex(rest, []byte{'/'})
 					apiName := string(rest[apiIndex+1:])
 
-					apiI, ok := Apis.Load(apiName)
+					apiI, ok := apis.Load(apiName)
 					if !ok {
 						// api不存在 返回错误
 						Logger.Info("api不存在，但是取到了服务器的打点信息", zap.String("api", apiName))
@@ -77,7 +77,7 @@ func watchUpstramServers() {
 					apiIndex := bytes.LastIndex(rest, []byte{'/'})
 					apiName := string(rest[apiIndex+1:])
 
-					apiI, ok := Apis.Load(apiName)
+					apiI, ok := apis.Load(apiName)
 					if !ok {
 						// api不存在，返回错误
 						Logger.Info("api不存在，但是取到了服务器的打点信息", zap.String("api", apiName))
