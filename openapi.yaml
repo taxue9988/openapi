@@ -4,6 +4,11 @@ common:
   logpath: "out.log"
   loglevel: debug
 
+api:
+  addr: ":1323"
+
+admin: 
+  addr: ":1322"
 
 mysql:
     addr: localhost
@@ -19,4 +24,6 @@ etcd:
   # api.Name = zeus.cache.query.v1
   # 打点时,key1 : /openapi/servers/zeus.cache.query.v1/127.0.0.1:1324  value1(负载): 0.5 
   # key2 : /openapi/servers/zeus.cache.query.v1/127.0.0.1:1325  value2(负载): 0.7
-  serverkey: "/openapi/servers/" 
+  serverkey: "/api/servers/" 
+
+

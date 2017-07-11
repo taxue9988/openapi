@@ -1,4 +1,4 @@
-package service
+package gateway
 
 import (
 	"net/http"
@@ -17,7 +17,7 @@ func apiRoute(c echo.Context) error {
 	apiName := c.FormValue("api_name")
 
 	// 查询是否存在此Api
-	apiI, ok := Apis.Load(apiName)
+	apiI, ok := apis.Load(apiName)
 	if !ok {
 		// api不存在，返回错误
 		return c.String(http.StatusOK, "Api不存在")

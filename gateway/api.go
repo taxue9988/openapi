@@ -1,41 +1,58 @@
-package service
+package gateway
 
 import (
 	"bytes"
 	"context"
-	"database/sql"
 	"fmt"
 	"sort"
 	"strconv"
+	"sync"
 
 	"github.com/coreos/etcd/clientv3"
-	_ "github.com/go-sql-driver/mysql"
+	"github.com/rdcloud-io/openapi/apidata"
 	"go.uber.org/zap"
 )
 
-/* 从Mysql中加载API信息到内存中*/
-type ApiRaw struct {
-	ID            int
-	Domain        string
-	Group         string
-	Name          string
-	Version       string
-	Method        string
-	ProxyMode     int
-	UpstreamMode  int
-	UpstreamValue string
+type Api struct {
+	// domain.group.service.version
+	// 只能由字母、数字、点组成
+	FullName string
+
+	// GET POST
+	Method string
+
+	// 1.Raw: 将请求的Path直接append在upstream_value(url)后
+	// 2.Indirect: 直接访问upstream_value(url)
+	ProxyMode int
+
+	// 1.直接寻址： url = upstream_value
+	// 2.间接寻址: 在etcd中取出key为Api.Name的值，返回的数据结构存储在UpstreamValue
+	UpstreamMode    int
+	UpstreamServers []*UpstreamServer
 }
 
-func loadApis() {
+type UpstreamServer struct {
+	Load float64
+	IP   string
+}
+
+type Apis struct {
+	*sync.Map
+}
+
+var apis *Apis
+
+func (a *Apis) LoadAll() {
 	query := fmt.Sprintf("SELECT * FROM api")
 	rows, err := db.Query(query)
 	if err != nil {
 		Logger.Fatal("query openapi.api error ", zap.Error(err))
 	}
+	defer rows.Close()
 
 	for rows.Next() {
-		rawApi := &ApiRaw{}
-		err = rows.Scan(&rawApi.ID, &rawApi.Domain, &rawApi.Group, &rawApi.Name, &rawApi.Version,
+		rawApi := &apidata.API{}
+		err = rows.Scan(&rawApi.ID, &rawApi.FullName, &rawApi.Company, &rawApi.Product, &rawApi.System, &rawApi.Interface, &rawApi.Version,
 			&rawApi.Method, &rawApi.ProxyMode, &rawApi.UpstreamMode, &rawApi.UpstreamValue)
 		if err != nil {
 			Logger.Fatal("scan openapi.api error ", zap.Error(err))
@@ -45,7 +62,7 @@ func loadApis() {
 		api.Method = rawApi.Method
 		api.ProxyMode = rawApi.ProxyMode
 		api.UpstreamMode = rawApi.UpstreamMode
-		api.Name = rawApi.Domain + "." + rawApi.Group + "." + rawApi.Name + "." + rawApi.Version
+		api.FullName = rawApi.FullName
 		if api.UpstreamMode == 1 {
 			api.UpstreamServers = []*UpstreamServer{
 				&UpstreamServer{
@@ -55,7 +72,7 @@ func loadApis() {
 			}
 		} else {
 			// 从etcd读取key=api.Name的值
-			resp, err := etcdCli.Get(context.Background(), Conf.Etcd.ServerKey+api.Name, clientv3.WithPrefix())
+			resp, err := etcdCli.Get(context.Background(), Conf.Etcd.ServerKey+api.FullName, clientv3.WithPrefix())
 			if err != nil {
 				Logger.Fatal("etcd get error", zap.Error(err))
 			}
@@ -77,33 +94,14 @@ func loadApis() {
 			api.UpstreamServers = servers
 
 			for _, s := range api.UpstreamServers {
-				fmt.Printf("api load: %s 的最新服务器列表: %v\n", api.Name, *s)
+				fmt.Printf("api load: %s 的最新服务器列表: %v\n", api.FullName, *s)
 			}
 		}
 
-		Apis.Store(api.Name, api)
+		fmt.Println(*api)
+		a.Store(api.FullName, api)
 	}
 
-}
-
-var db *sql.DB
-
-func initMysql() {
-	var err error
-
-	// 初始化mysql连接
-	sqlConn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", Conf.Mysql.Acc, Conf.Mysql.Pw,
-		Conf.Mysql.Addr, Conf.Mysql.Port, Conf.Mysql.Database)
-	db, err = sql.Open("mysql", sqlConn)
-	if err != nil {
-		Logger.Fatal("init mysql error", zap.Error(err))
-	}
-
-	// 测试db是否正常
-	err = db.Ping()
-	if err != nil {
-		Logger.Fatal("init mysql, ping error", zap.Error(err))
-	}
 }
 
 func ipAndLoad(key []byte, val []byte) (string, float64) {
