@@ -1,4 +1,4 @@
-package service
+package global
 
 import (
 	"io/ioutil"
@@ -13,6 +13,14 @@ type Config struct {
 		IsDebug  bool `yaml:"debug"`
 		LogPath  string
 		LogLevel string
+	}
+
+	Api struct {
+		Addr string
+	}
+
+	Admin struct {
+		Addr string
 	}
 
 	Mysql struct {
@@ -31,7 +39,7 @@ type Config struct {
 
 var Conf = &Config{}
 
-func initConfig() {
+func InitConfig() {
 	data, err := ioutil.ReadFile("openapi.yaml")
 	if err != nil {
 		log.Fatal("read config error :", err)
