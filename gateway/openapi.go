@@ -8,21 +8,25 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/labstack/echo"
-	"github.com/rdcloud-io/openapi/global"
+	"github.com/rdcloud-io/global"
+	"github.com/rdcloud-io/global/servicelist"
+	"github.com/rdcloud-io/openapi/common"
 	"go.uber.org/zap"
 )
 
 var Logger *zap.Logger
-var Conf *global.Config
+var Conf *common.Config
 
 func Start() {
-	global.InitConfig()
-	Conf = global.Conf
-	global.InitLogger(Conf.Common.LogPath, Conf.Common.LogLevel, Conf.Common.IsDebug)
+	common.InitConfig()
+	Conf = common.Conf
+	global.InitLogger(Conf.Common.LogPath, Conf.Common.LogLevel, Conf.Common.IsDebug, servicelist.OpenapiGateway)
 	Logger = global.Logger
 
 	initMysql()
 	initEtcd()
+	initUpdateApi()
+
 	go watchUpstramServers()
 
 	apis = &Apis{
@@ -32,7 +36,7 @@ func Start() {
 
 	e := echo.New()
 	e.Any("/*", apiRoute)
-	e.Logger.Fatal(e.Start(Conf.Api.Addr))
+	e.Logger.Fatal(e.Start(":" + Conf.Api.GatewayPort))
 }
 
 var db *sql.DB

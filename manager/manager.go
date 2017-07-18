@@ -6,21 +6,25 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/labstack/echo"
-	"github.com/rdcloud-io/openapi/global"
+	"github.com/rdcloud-io/global"
+	"github.com/rdcloud-io/global/servicelist"
+	"github.com/rdcloud-io/openapi/common"
+
 	"go.uber.org/zap"
 )
 
 var Logger *zap.Logger
-var Conf *global.Config
+var Conf *common.Config
 
 func Start() {
-	global.InitConfig()
-	Conf = global.Conf
+	common.InitConfig()
+	Conf = common.Conf
 
-	global.InitLogger(Conf.Common.LogPath, Conf.Common.LogLevel, Conf.Common.IsDebug)
+	global.InitLogger(Conf.Common.LogPath, Conf.Common.LogLevel, Conf.Common.IsDebug, servicelist.OpenapiGateway)
 	Logger = global.Logger
 
 	initMysql()
+	initGatewayUpdate()
 
 	e := echo.New()
 	e.Static("/", "manager/public/docs")
@@ -29,7 +33,7 @@ func Start() {
 	e.POST("/api/query", apiQuery)
 	e.POST("/api/delete", apiDelete)
 	e.GET("/api/list", apiList)
-	e.Logger.Fatal(e.Start(Conf.Admin.Addr))
+	e.Logger.Fatal(e.Start(":" + Conf.Admin.ManagerPort))
 }
 
 var db *sql.DB

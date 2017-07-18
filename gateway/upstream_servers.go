@@ -9,6 +9,7 @@ import (
 	"fmt"
 
 	"github.com/coreos/etcd/clientv3"
+	"github.com/rdcloud-io/global/apilist"
 	"go.uber.org/zap"
 )
 
@@ -30,6 +31,11 @@ func watchUpstramServers() {
 					// 解析出apiName
 					apiIndex := bytes.LastIndex(rest, []byte{'/'})
 					apiName := string(rest[apiIndex+1:])
+
+					// 如果api是gateway自身的api,则略过
+					if apiName == apilist.OpenapiGatewayUpdateApi {
+						continue
+					}
 
 					apiI, ok := apis.Load(apiName)
 					if !ok {
