@@ -11,8 +11,9 @@ import (
 	"strings"
 
 	"github.com/labstack/echo"
+	"github.com/rdcloud-io/global"
 	"github.com/rdcloud-io/openapi/apidata"
-	"github.com/rdcloud-io/openapi/global"
+	"github.com/rdcloud-io/openapi/common"
 )
 
 type ExtApiRes struct {
@@ -23,7 +24,8 @@ type ExtApiRes struct {
 func apiCreate(c echo.Context) error {
 	c.Response().Header().Set("Access-Control-Allow-Origin", "*") //允许访问所有域
 
-	ts, rid, debugOn := global.LogExtra(c)
+	rid := common.RequestID()
+	ts, debugOn := global.LogExtra(c)
 
 	api := &apidata.API{}
 	// api, err := getApiPramas(c)
@@ -77,6 +79,7 @@ func apiCreate(c echo.Context) error {
 
 	Logger.Info("api创建成功", zap.String("rid", rid), zap.Int64("eclapsed", time.Now().Sub(ts).Nanoseconds()/1000))
 
+	updateApi(api.FullName, 1)
 	return c.JSON(http.StatusOK, &ExtApiRes{
 		Suc: true,
 		Data: map[string]interface{}{
@@ -87,7 +90,8 @@ func apiCreate(c echo.Context) error {
 
 func apiUpdate(c echo.Context) error {
 	c.Response().Header().Set("Access-Control-Allow-Origin", "*") //允许访问所有域
-	ts, rid, debugOn := global.LogExtra(c)
+	rid := common.RequestID()
+	ts, debugOn := global.LogExtra(c)
 
 	api := &apidata.API{}
 	api.FullName = c.FormValue("api_name")
@@ -118,6 +122,7 @@ func apiUpdate(c echo.Context) error {
 
 	Logger.Info("api更新成功", zap.String("rid", rid), zap.Int64("eclapsed", time.Now().Sub(ts).Nanoseconds()/1000))
 
+	updateApi(api.FullName, 2)
 	return c.JSON(http.StatusOK, &ExtApiRes{
 		Suc: true,
 	})
@@ -128,7 +133,9 @@ func apiUpdate(c echo.Context) error {
 // domain + group + name + version
 func apiQuery(c echo.Context) error {
 	c.Response().Header().Set("Access-Control-Allow-Origin", "*") //允许访问所有域
-	ts, rid, debugOn := global.LogExtra(c)
+
+	rid := common.RequestID()
+	ts, debugOn := global.LogExtra(c)
 
 	var query string
 
@@ -179,7 +186,8 @@ func apiQuery(c echo.Context) error {
 func apiList(c echo.Context) error {
 	c.Response().Header().Set("Access-Control-Allow-Origin", "*") //允许访问所有域
 
-	ts, rid, debugOn := global.LogExtra(c)
+	rid := common.RequestID()
+	ts, debugOn := global.LogExtra(c)
 
 	query := fmt.Sprintf("SELECT * FROM api")
 	rows, err := db.Query(query)
@@ -218,7 +226,9 @@ func apiList(c echo.Context) error {
 
 func apiDelete(c echo.Context) error {
 	c.Response().Header().Set("Access-Control-Allow-Origin", "*") //允许访问所有域
-	ts, rid, debugOn := global.LogExtra(c)
+
+	rid := common.RequestID()
+	ts, debugOn := global.LogExtra(c)
 
 	apiAll := c.FormValue("apis")
 	Logger.Info("api查询", zap.String("rid", rid), zap.String("api_name", apiAll))
@@ -235,7 +245,7 @@ func apiDelete(c echo.Context) error {
 	}
 
 	Logger.Info("api删除成功", zap.String("rid", rid), zap.Int64("eclapsed", time.Now().Sub(ts).Nanoseconds()/1000))
-
+	updateApi(apiAll, 3)
 	return c.String(http.StatusOK, "success")
 }
 
