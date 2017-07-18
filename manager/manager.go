@@ -23,12 +23,12 @@ func Start() {
 	initMysql()
 
 	e := echo.New()
-
+	e.Static("/", "manager/public/docs")
 	e.POST("/api/create", apiCreate)
 	e.POST("/api/update", apiUpdate)
 	e.POST("/api/query", apiQuery)
 	e.POST("/api/delete", apiDelete)
-
+	e.GET("/api/list", apiList)
 	e.Logger.Fatal(e.Start(Conf.Admin.Addr))
 }
 

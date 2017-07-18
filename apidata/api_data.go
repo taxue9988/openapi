@@ -4,7 +4,7 @@ package apidata
 type API struct {
 	ID int `json:"id"`
 
-	FullName  string `json:"full_name"`
+	FullName  string `json:"api_name"`
 	Company   string `json:"company"`
 	Product   string `json:"product"`
 	System    string `json:"system"`
@@ -13,8 +13,8 @@ type API struct {
 
 	Method string `json:"method"`
 
-	ProxyMode int `json:"proxy_mode"`
+	ProxyMode string `json:"proxy_mode"`
 
-	UpstreamMode  int    `json:"upstream_mode"`
+	UpstreamMode  string `json:"upstream_mode"`
 	UpstreamValue string `json:"upstream_value"`
 }
