@@ -1,0 +1,94 @@
+@import '~iview/src/styles/index.less';
+@import './demo.less';
+@import './components.less';
+
+// Color
+@primary-color          : #41b883;
+@info-color             : #1d8ce0;
+@success-color          : #41b883;
+@warning-color          : #ffa000;
+@error-color            : #F60000;
+@link-color             : #35495e;
+@subsidiary-color       : #9ea3b1;
+
+// Border color
+@border-color-base      : #dddee1;  // outside
+@border-color-split     : #eeeff1;  // inside
+@table-td-hover-bg      : #fafafa;
+
+// Background color
+@background-color-base  : #fff;  // base
+@menu-dark-active-bg    : #171e2e;
+@menu-dark-title        : #1c2438;
+
+//font 
+@light-font-color: #495060;
+@font-size-base         : 15px;
+@font-size-small        : 13px;
+
+
+// Special color
+@light-teal : #00c1de;
+@dark-teal: #37cbc1;
+
+// height
+@primary-button-height: 2.6rem;
+@secondary-button-height: 2.3rem;
+//components
+.ivu-select-dropdown{
+  margin: 10px 0;
+  padding: 0;
+  .ivu-dropdown-item{
+    padding: 10px;
+  }
+  .ivu-dropdown-item-divided{
+    margin: 0;
+    &:before{
+      height: 0;
+    }
+  }
+}
+
+.ivu-menu-item-group-title {
+  color: white !important;
+}
+
+
+   .ivu-message {
+        top : 150px ;
+    }
+     .ivu-message-notice-content {
+            height: 50px ;
+    }
+
+     .ivu-message-notice-content-text {
+        margin-top : 8px;
+    }
+ 
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active :hover {
+  color: @primary-color;
+  background: transparent !important;
+}
+
+table{
+  width: 100%;
+  border-spacing: 0;
+  tr{
+    td{
+      height: 44px;
+      margin: 0;
+      border-bottom: 1px solid @border-color-split;
+      margin: 0;
+    }
+  }
+  tr:last-child{
+    td{
+      border-bottom: none;
+    }
+  }
+}
+
+
+
+
+

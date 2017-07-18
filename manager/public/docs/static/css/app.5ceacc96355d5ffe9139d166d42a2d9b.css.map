@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./src/pages/Sidebar.vue"],"names":[],"mappings":"AACA,qCACE,gBAAkB","file":"static/css/app.5ceacc96355d5ffe9139d166d42a2d9b.css","sourcesContent":["\n#sidebar-menu-group[data-v-dfcfc324] {\n  margin-left: 1rem;\n}\n\n\n\n// WEBPACK FOOTER //\n// ./src/pages/Sidebar.vue"],"sourceRoot":""}
