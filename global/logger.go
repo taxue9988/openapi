@@ -26,7 +26,10 @@ func InitLogger(lp string, lv string, isDebug bool) {
 	}
 	cfg.EncoderConfig = zap.NewProductionEncoderConfig()
 	cfg.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
-	// cfg.EncoderConfig.EncodeCaller = zapcore.FullCallerEncoder
+	cfg.InitialFields = map[string]interface{}{
+		"service": Conf.Common.Service,
+	}
+
 	var err error
 	Logger, err = cfg.Build()
 	if err != nil {
@@ -34,4 +37,10 @@ func InitLogger(lp string, lv string, isDebug bool) {
 	}
 
 	Logger.Info("logger初始化成功")
+}
+
+func DebugLog(requestID string, debugOn bool, msg string, fields ...zapcore.Field) {
+	if debugOn {
+		Logger.Info(msg, append(fields, zap.String("rid", requestID))...)
+	}
 }

@@ -23,11 +23,11 @@ type Api struct {
 
 	// 1.Raw: 将请求的Path直接append在upstream_value(url)后
 	// 2.Indirect: 直接访问upstream_value(url)
-	ProxyMode int
+	ProxyMode string
 
 	// 1.直接寻址： url = upstream_value
 	// 2.间接寻址: 在etcd中取出key为Api.Name的值，返回的数据结构存储在UpstreamValue
-	UpstreamMode    int
+	UpstreamMode    string
 	UpstreamServers []*UpstreamServer
 }
 
@@ -63,7 +63,7 @@ func (a *Apis) LoadAll() {
 		api.ProxyMode = rawApi.ProxyMode
 		api.UpstreamMode = rawApi.UpstreamMode
 		api.FullName = rawApi.FullName
-		if api.UpstreamMode == 1 {
+		if api.UpstreamMode == "1" {
 			api.UpstreamServers = []*UpstreamServer{
 				&UpstreamServer{
 					IP:   rawApi.UpstreamValue,

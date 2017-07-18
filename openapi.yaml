@@ -2,10 +2,11 @@ common:
   version: 0.0.1
   debug:   false
   logpath: "out.log"
-  loglevel: debug
-
-api:
+  loglevel: info
+  service: "openapi.gateway"
+api: 
   addr: ":1323"
+  serverid: 1
 
 admin: 
   addr: ":1322"

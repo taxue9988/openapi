@@ -13,10 +13,12 @@ type Config struct {
 		IsDebug  bool `yaml:"debug"`
 		LogPath  string
 		LogLevel string
+		Service  string
 	}
 
 	Api struct {
-		Addr string
+		Addr     string
+		ServerID int
 	}
 
 	Admin struct {
