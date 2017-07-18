@@ -1,4 +1,4 @@
-package global
+package common
 
 import (
 	"io/ioutil"
@@ -14,15 +14,17 @@ type Config struct {
 		LogPath  string
 		LogLevel string
 		Service  string
+		RealIp   string
 	}
 
 	Api struct {
-		Addr     string
-		ServerID int
+		GatewayPort   string
+		ServerID      int
+		ApiUpdatePort string
 	}
 
 	Admin struct {
-		Addr string
+		ManagerPort string
 	}
 
 	Mysql struct {

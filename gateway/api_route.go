@@ -7,7 +7,8 @@ import (
 	"fmt"
 
 	"github.com/labstack/echo"
-	"github.com/rdcloud-io/openapi/global"
+	"github.com/rdcloud-io/global"
+	"github.com/rdcloud-io/openapi/common"
 	"github.com/valyala/fasthttp"
 	"go.uber.org/zap"
 )
@@ -18,7 +19,7 @@ func apiRoute(c echo.Context) error {
 	ts := time.Now()
 
 	// 生成request_id
-	rid := global.RequestID()
+	rid := common.RequestID()
 	// 获取debug选项
 	if c.FormValue("log_debug") == "on" {
 		c.Set("debug_on", true)
