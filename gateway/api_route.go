@@ -49,14 +49,8 @@ func apiRoute(c echo.Context) error {
 		Logger.Warn("要请求的服务不存活", zap.String("rid", rid), zap.String("api_name", apiName))
 		return c.String(http.StatusOK, "该Api没有服务器存活")
 	}
-	if api.ProxyMode == "1" {
-		uri := c.Request().RequestURI
-		//  api.UpstreamMode 为 1和2时，处理方式暂时统一
-		url := api.UpstreamServers[0].IP
-		upstreamUrl = url + uri
-	} else {
-		upstreamUrl = api.UpstreamServers[0].IP
-	}
+
+	upstreamUrl = api.UpstreamServers[0].IP
 
 	global.DebugLog(rid, c.Get("debug_on").(bool), "raw upstream url", zap.String("uri", c.Request().RequestURI), zap.String("raw_upstream_url", upstreamUrl))
 	req := &fasthttp.Request{}

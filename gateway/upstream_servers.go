@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"sort"
-	"strconv"
 
 	"fmt"
 
@@ -20,11 +19,7 @@ func watchUpstramServers() {
 			for _, ev := range wresp.Events {
 				if ev.Type == 0 { // put
 					// 解析load
-					load, _ := strconv.ParseFloat(string(ev.Kv.Value), 64)
-
-					// 解析出ip
-					ipIndex := bytes.LastIndex(ev.Kv.Key, []byte{'/'})
-					ip := "http://" + string(ev.Kv.Key[ipIndex+1:])
+					ip, load, ipIndex := ipAndLoad(ev.Kv.Key, ev.Kv.Value)
 
 					rest := ev.Kv.Key[:ipIndex]
 
@@ -74,8 +69,7 @@ func watchUpstramServers() {
 					}
 				} else if ev.Type == 1 { // delete
 					// 解析出ip
-					ipIndex := bytes.LastIndex(ev.Kv.Key, []byte{'/'})
-					ip := "http://" + string(ev.Kv.Key[ipIndex+1:])
+					ip, _, ipIndex := ipAndLoad(ev.Kv.Key, ev.Kv.Value)
 
 					rest := ev.Kv.Key[:ipIndex]
 

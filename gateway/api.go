@@ -7,10 +7,13 @@ import (
 	"fmt"
 	"sort"
 	"strconv"
+	"strings"
 	"sync"
 
 	"github.com/coreos/etcd/clientv3"
-	"github.com/rdcloud-io/openapi/apidata"
+	"github.com/openapm/talents"
+	"github.com/rdcloud-io/global"
+	"github.com/rdcloud-io/openapi/data"
 	"go.uber.org/zap"
 )
 
@@ -59,7 +62,7 @@ func (a *Apis) LoadAll() {
 }
 
 func load(rows *sql.Rows) {
-	rawApi := &apidata.API{}
+	rawApi := &data.API{}
 	err := rows.Scan(&rawApi.ID, &rawApi.FullName, &rawApi.Company, &rawApi.Product, &rawApi.System, &rawApi.Interface, &rawApi.Version,
 		&rawApi.Method, &rawApi.ProxyMode, &rawApi.UpstreamMode, &rawApi.UpstreamValue)
 	if err != nil {
@@ -80,14 +83,14 @@ func load(rows *sql.Rows) {
 		}
 	} else {
 		// 从etcd读取key=api.Name的值
-		resp, err := etcdCli.Get(context.Background(), Conf.Etcd.ServerKey+api.FullName, clientv3.WithPrefix())
+		resp, err := etcdCli.Get(context.Background(), global.APIsRootPath+api.FullName, clientv3.WithPrefix())
 		if err != nil {
 			Logger.Fatal("etcd get error", zap.Error(err))
 		}
 
 		servers := make([]*UpstreamServer, 0, len(resp.Kvs))
 		for _, v := range resp.Kvs {
-			ip, load := ipAndLoad(v.Key, v.Value)
+			ip, load, _ := ipAndLoad(v.Key, v.Value)
 			servers = append(servers, &UpstreamServer{
 				IP:   ip,
 				Load: load,
@@ -109,13 +112,16 @@ func load(rows *sql.Rows) {
 	fmt.Println(*api)
 	apis.Store(api.FullName, api)
 }
-func ipAndLoad(key []byte, val []byte) (string, float64) {
+func ipAndLoad(key []byte, val []byte) (string, float64, int) {
 	// 解析load
-	load, _ := strconv.ParseFloat(string(val), 64)
+	loadPath := strings.Split(talents.Bytes2String(val), "--")
+
+	load, _ := strconv.ParseFloat(loadPath[0], 64)
+	path := loadPath[1]
 
 	// 解析出ip
 	ipIndex := bytes.LastIndex(key, []byte{'/'})
-	ip := "http://" + string(key[ipIndex+1:])
+	ip := "http://" + string(key[ipIndex+1:]) + path
 
-	return ip, load
+	return ip, load, ipIndex
 }

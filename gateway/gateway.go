@@ -2,7 +2,6 @@ package gateway
 
 import (
 	"database/sql"
-	"fmt"
 
 	"sync"
 
@@ -23,7 +22,13 @@ func Start() {
 	global.InitLogger(Conf.Common.LogPath, Conf.Common.LogLevel, Conf.Common.IsDebug, servicelist.OpenapiGateway)
 	Logger = global.Logger
 
-	initMysql()
+	db = global.InitMysql(&global.MysqlConfig{
+		Acc:      Conf.Mysql.Acc,
+		Pw:       Conf.Mysql.Pw,
+		Addr:     Conf.Mysql.Addr,
+		Port:     Conf.Mysql.Port,
+		Database: Conf.Mysql.Database,
+	})
 	initEtcd()
 	initUpdateApi()
 
@@ -40,21 +45,3 @@ func Start() {
 }
 
 var db *sql.DB
-
-func initMysql() {
-	var err error
-
-	// 初始化mysql连接
-	sqlConn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", Conf.Mysql.Acc, Conf.Mysql.Pw,
-		Conf.Mysql.Addr, Conf.Mysql.Port, Conf.Mysql.Database)
-	db, err = sql.Open("mysql", sqlConn)
-	if err != nil {
-		Logger.Fatal("init mysql error", zap.Error(err))
-	}
-
-	// 测试db是否正常
-	err = db.Ping()
-	if err != nil {
-		Logger.Fatal("init mysql, ping error", zap.Error(err))
-	}
-}
