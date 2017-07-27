@@ -4,7 +4,7 @@ common:
   logpath: "out.log"
   loglevel: debug
   service: "rdcloud.openapi.gateway"
-  realip: "10.50.36.184"
+  realip: "127.0.0.1"
 
 api: 
   gatewayport: "1323"
