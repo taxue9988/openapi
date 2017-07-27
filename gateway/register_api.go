@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/labstack/echo"
+	"github.com/rdcloud-io/global"
 	"github.com/rdcloud-io/global/apilist"
 	"github.com/rdcloud-io/openapi/common"
 	"github.com/rdcloud-io/sdk/api"
@@ -22,7 +23,15 @@ func initUpdateApi() {
 	go registerUpdateApi()
 }
 func registerUpdateApi() {
-	errCh := api.StoreServerByApi1(etcdCli, apilist.OpenapiGatewayUpdateApi, Conf.Common.RealIp, Conf.Api.ApiUpdatePort, "/api/update", 1)
+	servers := []*global.ServerInfo{
+		&global.ServerInfo{
+			APIName: apilist.OpenapiGatewayUpdateApi,
+			IP:      Conf.Common.RealIp + ":" + Conf.Api.ApiUpdatePort,
+			Path:    "/api/update",
+			Load:    1,
+		},
+	}
+	errCh := api.StoreServersByApi(etcdCli, servers)
 	for {
 		select {
 		case err := <-errCh:

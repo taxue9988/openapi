@@ -12,8 +12,8 @@ import (
 
 	"github.com/labstack/echo"
 	"github.com/rdcloud-io/global"
-	"github.com/rdcloud-io/openapi/apidata"
 	"github.com/rdcloud-io/openapi/common"
+	"github.com/rdcloud-io/openapi/data"
 )
 
 type ExtApiRes struct {
@@ -27,7 +27,7 @@ func apiCreate(c echo.Context) error {
 	rid := common.RequestID()
 	ts, debugOn := global.LogExtra(c)
 
-	api := &apidata.API{}
+	api := &data.API{}
 	// api, err := getApiPramas(c)
 	// Logger.Info("api创建", zap.String("rid", rid), zap.Any("api", *api))
 	// if err != nil {
@@ -93,7 +93,7 @@ func apiUpdate(c echo.Context) error {
 	rid := common.RequestID()
 	ts, debugOn := global.LogExtra(c)
 
-	api := &apidata.API{}
+	api := &data.API{}
 	api.FullName = c.FormValue("api_name")
 	api.Method = c.FormValue("method")
 	api.ProxyMode = c.FormValue("proxy_mode")
@@ -152,9 +152,9 @@ func apiQuery(c echo.Context) error {
 	}
 	defer rows.Close()
 
-	var api *apidata.API
+	var api *data.API
 	for rows.Next() {
-		tempApi := &apidata.API{}
+		tempApi := &data.API{}
 		err := rows.Scan(&tempApi.ID, &tempApi.FullName, &tempApi.Company, &tempApi.Product,
 			&tempApi.System, &tempApi.Interface, &tempApi.Version, &tempApi.Method, &tempApi.ProxyMode, &tempApi.UpstreamMode, &tempApi.UpstreamValue)
 		if err != nil {
@@ -184,8 +184,6 @@ func apiQuery(c echo.Context) error {
 }
 
 func apiList(c echo.Context) error {
-	c.Response().Header().Set("Access-Control-Allow-Origin", "*") //允许访问所有域
-
 	rid := common.RequestID()
 	ts, debugOn := global.LogExtra(c)
 
@@ -197,9 +195,9 @@ func apiList(c echo.Context) error {
 	}
 	defer rows.Close()
 
-	var apis []*apidata.API
+	var apis []*data.API
 	for rows.Next() {
-		tempApi := &apidata.API{}
+		tempApi := &data.API{}
 		err := rows.Scan(&tempApi.ID, &tempApi.FullName, &tempApi.Company, &tempApi.Product,
 			&tempApi.System, &tempApi.Interface, &tempApi.Version, &tempApi.Method, &tempApi.ProxyMode, &tempApi.UpstreamMode, &tempApi.UpstreamValue)
 		if err != nil {
@@ -250,8 +248,8 @@ func apiDelete(c echo.Context) error {
 }
 
 /*------------------------------ 内部API -----------------------------------------*/
-func getApiPramas(c echo.Context) (*apidata.API, error) {
-	api := &apidata.API{}
+func getApiPramas(c echo.Context) (*data.API, error) {
+	api := &data.API{}
 	api.Company = c.FormValue("company")
 	api.Product = c.FormValue("product")
 	api.System = c.FormValue("system")

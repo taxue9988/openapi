@@ -2,28 +2,37 @@ package manager
 
 import (
 	"database/sql"
-	"fmt"
 
-	_ "github.com/go-sql-driver/mysql"
 	"github.com/labstack/echo"
 	"github.com/rdcloud-io/global"
-	"github.com/rdcloud-io/global/servicelist"
+	"github.com/rdcloud-io/global/code"
 	"github.com/rdcloud-io/openapi/common"
 
+	"github.com/rdcloud-io/global/apilist"
+	"github.com/rdcloud-io/sdk/account"
+	"github.com/rdcloud-io/sdk/api"
 	"go.uber.org/zap"
 )
 
 var Logger *zap.Logger
 var Conf *common.Config
 
+var db *sql.DB
+
 func Start() {
 	common.InitConfig()
 	Conf = common.Conf
 
-	global.InitLogger(Conf.Common.LogPath, Conf.Common.LogLevel, Conf.Common.IsDebug, servicelist.OpenapiGateway)
+	global.InitLogger(Conf.Common.LogPath, Conf.Common.LogLevel, Conf.Common.IsDebug, Conf.Common.Service)
 	Logger = global.Logger
 
-	initMysql()
+	db = global.InitMysql(&global.MysqlConfig{
+		Acc:      Conf.Mysql.Acc,
+		Pw:       Conf.Mysql.Pw,
+		Addr:     Conf.Mysql.Addr,
+		Port:     Conf.Mysql.Port,
+		Database: Conf.Mysql.Database,
+	})
 	initGatewayUpdate()
 
 	e := echo.New()
@@ -32,26 +41,32 @@ func Start() {
 	e.POST("/api/update", apiUpdate)
 	e.POST("/api/query", apiQuery)
 	e.POST("/api/delete", apiDelete)
-	e.GET("/api/list", apiList)
+	e.GET("/api/list", apiList, storeStaff, account.CheckStaffLogin)
+
+	// 内部API管理
+	e.POST("/inapi/create", inApiCreate, storeStaff, account.CheckStaffLogin)
+	e.GET("/inapi/list", inApiList, storeStaff, account.CheckStaffLogin)
+	e.POST("/inapi/delete", inApiDelete, storeStaff, account.CheckStaffLogin)
+	e.POST("/inapi/update", inApiUpdate, storeStaff, account.CheckStaffLogin)
 	e.Logger.Fatal(e.Start(":" + Conf.Admin.ManagerPort))
 }
 
-var db *sql.DB
+// 存储staff ip、port、路径
+func storeStaff(f echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		global.SetCrossDomain(c)
+		serversS, ok := Servers.Load(apilist.StaffCheckLogin)
+		if !ok {
+			return c.JSON(200, global.Result{
+				Code:      code.StaffServersEmpty,
+				Message:   "请重新登录",
+				NeedLogin: true,
+			})
+		}
 
-func initMysql() {
-	var err error
+		servers := serversS.(*api.QueryServerRes)
+		c.Set("addr", "http://"+servers.Servers[0].IP+servers.Servers[0].Path)
 
-	// 初始化mysql连接
-	sqlConn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", Conf.Mysql.Acc, Conf.Mysql.Pw,
-		Conf.Mysql.Addr, Conf.Mysql.Port, Conf.Mysql.Database)
-	db, err = sql.Open("mysql", sqlConn)
-	if err != nil {
-		Logger.Fatal("init mysql error", zap.Error(err))
-	}
-
-	// 测试db是否正常
-	err = db.Ping()
-	if err != nil {
-		Logger.Fatal("init mysql, ping error", zap.Error(err))
+		return f(c)
 	}
 }
